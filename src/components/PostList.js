@@ -4,8 +4,7 @@ import { fetchPostsAndUsers } from '../actions';
 import UserHeader from './UserHeader';
 
 class PostList extends Component {
-
-  componentDidMount() {
+  handleClick = () => {
     this.props.fetchPostsAndUsers()
   }
 
@@ -27,14 +26,26 @@ class PostList extends Component {
   render() {
     return (
       <div className="ui relaxed divided list">
+        <button className="ui primary button" onClick={this.handleClick}>Add Posts to Display</button>
         {this.renderList()}
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return { posts: state.posts }
 }
 
-export default connect(mapStateToProps, {fetchPostsAndUsers})(PostList);
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     fetchPostsAndUsers: () => {
+//       dispatch(fetchPostsAndUsers())
+//     }
+//   }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(PostList);
+
+// alternate way to specify a dispatch without using mapDispatchToProps
+export default connect(mapStateToProps, { fetchPostsAndUsers })(PostList);
